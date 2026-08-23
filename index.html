@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CommissionPH — Real Estate Commission Calculator for PH Brokers (co-broker splits, 2307, VAT)</title>
+<link rel="manifest" href="manifest.json">
 <meta name="description" content="Know your ACTUAL take-home per deal: commission, co-broker split, broker-of-record cut, VAT, and the 5% 2307 withholding you can claim at tax time. Free tool for Philippine real estate brokers and agents.">
 <meta property="og:title" content="CommissionPH — PH Broker Take-Home Calculator">
 <meta property="og:description" content="Free PH real estate commission calculator: co-broke split, broker cut, BIR 2307 withholding, VAT. PRO ₱149 for deal tracker + CSV.">
@@ -212,5 +213,11 @@
 </div>
 
 <script src="app.js"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+</script>
 </body>
 </html>
