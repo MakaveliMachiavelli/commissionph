@@ -1,7 +1,7 @@
 /* CommissionPH — brand layer (relief emerald + alert red) */
 :root{
   --brand:#92400e; --brand2:#b45309; --accent:#f59e0b; --red:#dc2626;
-  --ink:#101828; --muted:#667085; --line:#e2e8f0; --bg:#fdf9f2;
+  --ink:#101828; --muted:#3d4a5c; --line:#e2e8f0; --bg:#fdf9f2;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
