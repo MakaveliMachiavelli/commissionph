@@ -1,7 +1,7 @@
 /* CommissionPH — PH real-estate commission take-home calculator. Vanilla JS, no deps. */
 'use strict';
 
-const PRO_CODES = ['COMMISSION-149', 'CP-DEMO'];
+const PRO_CODES = ['CPH-PRO-149-B6B7-905F', 'CPH-PRO-149-DEMO-0626-C0D6'];
 const LS = { pro: 'cp_pro', draft: 'cp_draft', trk: 'cp_trk' };
 let pro = localStorage.getItem(LS.pro) === '1';
 let deals = [];
