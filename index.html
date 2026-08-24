@@ -151,7 +151,169 @@
         <p style="color:var(--p-muted);">For PH sales professionals · <a href="https://makavelimachiavelli.github.io/zinvent-hub/">Zinvent</a></p>
       </div>
     </section>
-  </main>
+  
+  <section id="z-app" class="z-section" hidden>
+    <div class="z-wrap" id="z-app-root">
+
+  >
+
+<header class="site-header">
+  <div class="brand">Commission<span>PH</span></div>
+  <nav>
+    <span id="proBadge" class="badge hidden">PRO</span>
+    <a href="#faq" class="navlink">FAQ</a>
+    <button id="proBtn" class="btn-link">PRO — ₱149</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>₱3M sale. 5% commission.<br><span class="hl">Magkano talaga ang dadaan sa GCash mo?</span></h1>
+    <p class="sub">Hindi ₱150k. May <strong>co-broker split</strong>, <strong>broker-of-record cut</strong>, <strong>5% 2307 withholding</strong> — at kung VAT-registered ka, 12% VAT. Ang <strong>CommissionPH</strong> ay nag-compute ng <strong>totoong take-home</strong> kada deal, at ipinapakita kung aling pera ay credit mo lang pala sa tax time.</p>
+    <div class="hero-chips">
+      <span>✓ Co-broker 50/50</span><span>✓ Broker-of-record cut</span><span>✓ 2307 credit tracking</span><span>✓ VAT-aware</span>
+    </div>
+  </section>
+
+  <div class="app-grid">
+    <section class="card-step">
+      <h2>1. Ang deal</h2>
+      <div class="fields three">
+        <label>Selling price (₱)
+          <input id="price" type="number" min="0" step="any" value="3000000">
+        </label>
+        <label>Commission rate (%)
+          <select id="commRate">
+            <option value="5" selected>5% — typical house &amp; lot / condo</option>
+            <option value="3">3% — typical big developer / negotiated</option>
+            <option value="2.5">2.5%</option>
+            <option value="6">6% — hard-to-sell / provincial</option>
+          </select>
+        </label>
+        <label>Referral fee sa iba (₱, kung may nag-refer)
+          <input id="referral" type="number" min="0" step="any" value="0">
+        </label>
+      </div>
+
+      <h2 style="margin-top:1.2rem">2. Ang splits</h2>
+      <div class="fields three">
+        <label>Co-broker split: ang share MO (%)
+          <select id="myShare">
+            <option value="100" selected>100% — ako lang ang broker</option>
+            <option value="50">50% — 50/50 co-broke (standard)</option>
+            <option value="60">60% — ako ang listing broker</option>
+            <option value="40">40% — ako ang selling broker</option>
+          </select>
+        </label>
+        <label>Broker-of-record / company cut (%)
+          <select id="companyCut">
+            <option value="0" selected>0% — independent na ako</option>
+            <option value="20">20%</option>
+            <option value="30">30% — karaniwan sa malalaking brokerage</option>
+            <option value="40">40%</option>
+          </select>
+        </label>
+        <label>Tax status
+          <select id="vatMode">
+            <option value="nonvat" selected>Non-VAT freelancer/broker</option>
+            <option value="vat">VAT-registered</option>
+          </select>
+        </label>
+      </div>
+      <div class="fields three" style="margin-top:.7rem">
+        <label class="check-label"><input type="checkbox" id="cwtOn" checked> 5% 2307 withholding (individual broker)</label>
+      </div>
+      <p class="hint">Ang 2307 ay hindi lugi — credit iyon sa income tax mo. Ang calculator ay tinitingnan ang cash flow mo, hindi lang ang gross.</p>
+    </section>
+
+    <section class="card-step">
+      <h2 class="preview-title">Ang totoong take-home mo</h2>
+      <div class="stats">
+        <div class="stat hi"><div class="stat-n" id="stGross">—</div><div class="stat-l">GROSS COMMISSION</div></div>
+        <div class="stat"><div class="stat-n" id="stNet">—</div><div class="stat-l">NET COMMISSION (mo)</div></div>
+        <div class="stat warn"><div class="stat-n" id="stCash">—</div><div class="stat-l">CASH IN HAND (after 2307)</div></div>
+      </div>
+      <div id="vatNote" class="save-box hidden"></div>
+      <div id="cwtNote" class="alert-red hidden" style="background:#fdf6ec;border-color:#fde0b7;color:#92400e"></div>
+      <div class="plan-doc">
+        <div class="pd-head">COMMISSION BREAKDOWN — <span id="p_deal">₱3,000,000 deal</span></div>
+        <table class="pd-table">
+          <tbody id="p_rows"></tbody>
+        </table>
+        <div class="pd-foot">Estimates lang — ang eksaktong split ay ayon sa agreement mo. Verify ang 2307 rate sa BIR schedule (RR 2-98) at kunin ang BIR Form 2307 sa payer kada payout.</div>
+      </div>
+      <div class="actions">
+        <button id="printBtn" class="btn primary">🖨️ Print breakdown</button>
+        <button id="trackBtn" class="btn">📌 Add to deal tracker (PRO)</button>
+        <button id="csvBtn" class="btn hidden">⬇️ Tracker CSV (PRO)</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="card-step hidden" id="trackerBox">
+    <div class="items-head"><h2>Deal tracker (PRO)</h2><button id="clearTrk" class="btn-small">Clear</button></div>
+    <div class="overflow-x"><table class="pd-table"><thead><tr><th>Deal</th><th class="r">Price</th><th class="r">Net mo</th><th class="r">2307 credit</th><th></th></tr></thead><tbody id="trkBody"></tbody></table></div>
+    <p class="hint" id="trkTotal"></p>
+  </section>
+
+  <section class="marketing">
+    <h2>Bakit malayo ang gross sa dala mo</h2>
+    <div class="cards">
+      <div class="card danger"><h3>🤝 Ang co-broke 50/50</h3><p>May kumuha ng buyer? Kalahati agad ang commission. Kaya ang ₱150k sa ulo mo ay ₱75k lang pala bago pa ang iba — hindi biro ang nagulat na broker.</p></div>
+      <div class="card"><h3>🏛️ Ang 5% na 2307</h3><p>Kaltas agad sa payout. PERO credit iyan sa income tax mo — kung hindi mo kinokolekta ang BIR Form 2307 kada deal, sinusunog mo ang pera mo. I-track nang tama.</p></div>
+      <div class="card"><h3>🏢 Ang company cut</h3><p>20–40% sa brokerage — bayad sa training, licensing at leads. Kalkulahin kung worth it pa ba pag lumaki ang deals mo (o kailan ka dapat mag-own PRC license).</p></div>
+    </div>
+
+    <h2 id="faq">Mga tanong</h2>
+    <div class="faq-item"><h3>Magkano ang typical commission sa PH?</h3><p>3–5% ang karaniwan (condo/house &amp; lot); 6%+ sa mahihirap ibenta. Developers nagbabayad ng mas mababa sa mga accredited agents. Ang kalkulasyon dito ay gamit ang rate na pinili mo.</p></div>
+    <div class="faq-item"><h3>Paano ko makukuha ang 2307 credit?</h3><p>Hingin ang BIR Form 2307 sa payer (developer/brokerage) kada payout. Sa filing ng 1701, i-deduct ang total credits — <a href="https://makavelimachiavelli.github.io/taxcalcph/">TaxCalcPH</a> may field para dito.</p></div>
+    <div class="faq-item"><h3>VAT-registered ako — magbabago ba ang net ko?</h3><p>Hindi — ang VAT ay idinadagdag sa billing at remitted mo. Pero kailangan mong ipakita ito nang tama sa invoice (<a href="https://makavelimachiavelli.github.io/invoiceph/">InvoicePH</a>).</p></div>
+    <div class="faq-item"><h3>Private ba ang deal tracker?</h3><p>Oo — nasa browser mo lang, walang server, walang account.</p></div>
+
+    <div class="cta-box">
+      <h2>CommissionPH PRO — ₱149 one-time</h2>
+      <ul>
+        <li>📌 <strong>Deal tracker</strong> — lahat ng deals, total net at 2307 credits kada taon</li>
+        <li>⬇️ <strong>CSV export</strong> — para sa records/accountant mo</li>
+        <li>🖨️ <strong>Clean printable breakdown</strong> — wala ang footer credit</li>
+      </ul>
+      <p class="once">₱149 — maliit na bahagi ng isang deal, malaking tulong kada filing season.</p>
+      <button id="proBtn2" class="btn primary big">Unlock PRO — ₱149</button>
+    </div>
+  </section>
+
+  <section class="cross-sell">
+    <p>🧾 Mag-i-invoice? <a href="https://makavelimachiavelli.github.io/invoiceph/">InvoicePH</a> · 📊 Tax computation? <a href="https://makavelimachiavelli.github.io/taxcalcph/">TaxCalcPH</a> · 🏠 Rental income? <a href="https://makavelimachiavelli.github.io/rentsheet/">RentSheet</a> · <a href="https://makavelimachiavelli.github.io/">lahat ng tools</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>CommissionPH — real estate commission calculator para sa PH brokers. <a href="co-broke-2307-guide.html">📖 Co-broke at 2307 guide</a>. Estimates only; confirm splits and withholding schedules with your broker and BIR. · <a href="commissionph-guide.html" hidden></a></p>
+</footer>
+
+<!-- PAY MODAL -->
+<div id="payModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="modal-x" id="payClose">✕</button>
+    <h2>CommissionPH PRO</h2>
+    <p class="price">₱149 <span>one-time · lifetime</span></p>
+    <div class="qr-box">
+      <img src="gcash-qr.svg" alt="GCash QR" width="170" height="170">
+      <ol class="pay-steps"><li>Scan ang GCash QR, send <b>₱149</b>.</li><li>Enter ang unlock code.</li></ol>
+    </div>
+    <div class="code-row">
+      <input id="codeInput" placeholder="Enter unlock code">
+      <button id="codeBtn" class="btn primary">Unlock</button>
+    </div>
+    <p class="code-msg" id="codeMsg"></p>
+  </div>
+</div>
+
+
+
+    </div>
+  </section>
+</main>
   <footer class="z-footer" role="contentinfo">
     <div class="z-wrap">
       <p>&copy; 2025 CommissionPH · <a href="https://makavelimachiavelli.github.io/zinvent-hub/privacy.html">Privacy</a> · <a href="https://makavelimachiavelli.github.io/zinvent-hub/terms.html">Terms</a></p>
@@ -163,5 +325,19 @@
     </div>
   </footer>
   <script src="app.js"></script>
+
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    var act = btn.getAttribute('data-action');
+    if(act && act.indexOf('new-')===0 || act==='start'){
+      var app = document.getElementById('z-app');
+      if(app){ app.hidden = false; app.scrollIntoView({behavior:'smooth'}); }
+    }
+  });
+})();
+</script>
 </body>
 </html>
