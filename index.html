@@ -3,34 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CommissionPH — Know your take-home (PRO)</title>
-  <meta name="description" content="PRO only: real take-home commission calculator for PH real estate & insurance agents. Accounts for 6% DST, 3% documentary tax, 6-month proration, HOA dues, and turnover tax. One-time ₱149 via GCash.">
+  <title>CommissionPH — Sales Commission Calculator (Real Estate, Insurance, Retail)</title>
+  <meta name="description" content="Calculate commissions with tiered rates, splits, and bonuses. Built for PH real estate, insurance, and retail agents. Free, no signup.">
   <link rel="canonical" href="https://makavelimachiavelli.github.io/commissionph/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b45309'/%3E%3Ctext x='32' y='44' font-size='32' text-anchor='middle' fill='%23f59e0b' font-family='Arial' font-weight='bold'%3E₱%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%233d1f3a'/%3E%3Ctext x='32' y='44' font-size='32' text-anchor='middle' fill='%23f0a5e8' font-family='Georgia' font-weight='bold'%3E%💼%3C/text%3E%3C/svg%3E">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Zinvent Design System -->
-    <!-- Zinvent Design System -->
   <link rel="stylesheet" href="https://makavelimachiavelli.github.io/zinvent-design-system/tokens.css">
-    <link rel="stylesheet" href="https://makavelimachiavelli.github.io/zinvent-design-system/components/base.css">
-  <!-- Zinvent Analytics (privacy-first, no cookies) -->
-  <script src="https://makavelimachiavelli.github.io/zinvent-design-system/components/analytics.js"></script>
-  <!-- Zinvent Payments (GCash + LemonSqueeasy, affiliate, email capture) -->
-  <script src="https://makavelimachiavelli.github.io/zinvent-design-system/components/payments.js"></script>
-<link rel="stylesheet" href="https://makavelimachiavelli.github.io/zinvent-design-system/tokens.css">
   <link rel="stylesheet" href="https://makavelimachiavelli.github.io/zinvent-design-system/components/base.css">
   <!-- Zinvent Analytics (privacy-first, no cookies) -->
   <script src="https://makavelimachiavelli.github.io/zinvent-design-system/components/analytics.js"></script>
   <!-- Zinvent Payments (GCash + LemonSqueezy, affiliate, email capture) -->
   <script src="https://makavelimachiavelli.github.io/zinvent-design-system/components/payments.js"></script>
+  <!-- Product Styles -->
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"CommissionPH","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"PHP"},"description":"Sales commission calculator for PH agents."}
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
+  <header class="z-header" role="banner">
+    <div class="z-header-inner">
+      <div class="z-brand"><span class="z-brand-mark">💼</span><span class="z-brand-name">CommissionPH</span></div>
+      <nav class="z-nav" role="navigation" aria-label="Main navigation">
+        <a href="#calculator">Calculator</a>
+        <a href="#structures">Structures</a>
+        <a href="#pro">PRO</a>
+        <a href="https://makavelimachiavelli.github.io/zinvent-hub/" class="z-btn z-btn-ghost z-btn-sm">All Tools</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" role="main">
+    <section class="z-hero z-reveal">
+      <span class="z-hero-eyebrow">Sales Commission Calculator</span>
+      <h1>Know your commission before you close.</h1>
+      <p>Tiered rates, team splits, broker cuts, bonuses — all computed instantly. Real estate, insurance, retail, auto. Free.</p>
+      <div class="z-hero-cta">
+        <button class="z-btn z-btn-primary z-btn-lg" data-action="calc">Calculate Commission</button>
+        <a href="#structures" class="z-btn z-btn-ghost z-btn-lg">Common Structures</a>
+      </div>
+      <div class="z-pills">
+        <span class="z-pill">Tiered Rates</span>
+        <span class="z-pill">Team Splits</span>
+        <span class="z-pill">Broker Cuts</span>
+        <span class="z-pill">Bonuses</span>
+      </div>
+    </section>
 
-<header class="site-header">
-  <div class="brand">Commission<span>PH</span></div>
-  <nav>
-    <span id="proBadge" class="badge hidden">PRO</span>
-    <a href="#faq" class="navlink">FAQ</a>
-    <button id="proBtn" class="btn-link">PRO — ₱149</button>
-  </nav>
-</header>
+    <section id="calculator" class="z-section z-reveal">
+      <div class="z-wrap">
+        <h2>Compute your check</h2>
+        <div class="z-card" style="padding:var(--z-s5);">
+          <div class="z-grid-2" style="margin-bottom:var(--z-s4);">
+            <div>
+              <label class="z-label">Sale Amount (₱)</label>
+              <input type="number" class="z-input" id="saleAmt" placeholder="3000000" min="0" step="1000">
+            </div>
+            <div>
+              <label class="z-label">Commission Structure</label>
+              <select class="z-input" id="commStruct">
+                <option value="flat">Flat % (e.g., 3%)</option>
+                <option value="tiered">Tiered (e.g., 5% first 1M, 3% next)</option>
+                <option value="split">Split with broker/team</option>
+              </select>
+            </div>
+            <div id="flatFields">
+              <div class="z-grid-2">
+                <div>
+                  <label class="z-label">Commission %</label>
+                  <input type="number" class="z-input" id="flatPct" placeholder="3" min="0" max="100" step="0.1" value="3">
+                </div>
+                <div>
+                  <label class="z-label">VAT on Commission?</label>
+                  <select class="z-input" id="commVat"><option value="no">No</option><option value="yes">Yes (12%)</option></select>
+                </div>
+              </div>
+            </div>
+            <div id="tieredFields" style="display:none;">
+              <button class="z-btn z-btn-secondary" data-action="addTier" style="margin-bottom:var(--z-s3);">+ Add Tier</button>
+              <div id="tiers"></div>
+            </div>
+            <div id="splitFields" style="display:none;">
+              <div class="z-grid-2">
+                <div>
+                  <label class="z-label">Your Split %</label>
+                  <input type="number" class="z-input" id="mySplit" placeholder="70" min="0" max="100" step="1" value="70">
+                </div>
+                <div>
+                  <label class="z-label">Broker/Team Cut %</label>
+                  <input type="number" class="z-input" id="brokerCut" placeholder="30" min="0" max="100" step="1" value="30">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="z-btn z-btn-primary" data-action="commCalc">Calculate</button>
+          <div id="commResult" class="z-result" style="margin-top:var(--z-s4);display:none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="structures" class="z-section z-reveal">
+      <div class="z-wrap">
+        <h2>Common PH structures</h2>
+        <div class="z-card-grid z-grid-3">
+          <article class="z-card">
+            <h3>Real Estate</h3>
+            <p>3–5% flat, or tiered (5% first ₱1M, 3% next, 2% balance). Broker split 50/50 to 70/30.</p>
+          </article>
+          <article class="z-card">
+            <h3>Insurance</h3>
+            <p>First year 25–45%, renewal 5–10%. Team override 5–15%.</p>
+          </article>
+          <article class="z-card">
+            <h3>Retail / Auto</h3>
+            <p>Flat 2–8% of gross. Volume bonus at thresholds. Team leader override.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pro" class="z-section z-reveal">
+      <div class="z-wrap" style="text-align:center;">
+        <h2>Unlock PRO — ₱199 one-time</h2>
+        <p style="max-width:600px;margin:0 auto var(--z-s5);color:var(--p-muted);">Saved structures, team leaderboard, monthly run-rate projection, and BIR 2307 generator.</p>
+        <div class="z-qr" role="region" aria-label="GCash payment">
+          <img src="qr-gcash.svg" alt="GCash QR for CommissionPH PRO" loading="lazy">
+          <ol class="z-qr-steps">
+            <li><b>Scan QR</b> with GCash app</li>
+            <li><b>Pay ₱199</b> (one-time, no subscription)</li>
+            <li><b>Enter unlock code</b> received via SMS/email</li>
+          </ol>
+        </div>
+        <div class="z-code-row">
+          <input type="text" class="z-input" id="proCode" placeholder="Enter unlock code" style="flex:1;text-transform:uppercase;">
+          <button class="z-btn z-btn-accent" id="btnUnlock">Unlock PRO</button>
+        </div>
+        <p id="codeMsg" class="z-code-msg" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="z-section-sm z-reveal">
+      <div class="z-wrap" style="text-align:center;">
+        <p style="color:var(--p-muted);">For PH sales professionals · <a href="https://makavelimachiavelli.github.io/zinvent-hub/">Zinvent</a></p>
+      </div>
+    </section>
+  </main>
+  <footer class="z-footer" role="contentinfo">
+    <div class="z-wrap">
+      <p>&copy; 2025 CommissionPH · <a href="https://makavelimachiavelli.github.io/zinvent-hub/privacy.html">Privacy</a> · <a href="https://makavelimachiavelli.github.io/zinvent-hub/terms.html">Terms</a></p>
+      <div class="z-footer-links">
+        <a href="https://github.com/MakaveliMachiavelli/commissionph">GitHub</a>
+        <a href="mailto:support@zinvent.ph">Support</a>
+        <a href="https://makavelimachiavelli.github.io/zinvent-hub/">All Zinvent Tools</a>
+      </div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
